@@ -1,0 +1,28 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import ServiceColumns from '../../components/services/ServiceColumns.astro';
+import PhaseExplainer from '../../components/services/PhaseExplainer.astro';
+import SecondaryServices from '../../components/services/SecondaryServices.astro';
+import CtaBand from '../../components/ui/CtaBand.astro';
+
+const lang = 'fr';
+---
+
+<PageLayout
+  lang={lang}
+  title="Activités"
+  description="Maîtrise d'Ouvrage Déléguée (MOD), Assistance à Maîtrise d'Ouvrage (AMO) et Conseil en immobilier tertiaire."
+  alternatePath="/services"
+>
+  <PageHeader
+    lang={lang}
+    label="Nos activités"
+    title="Ce que nous faisons"
+    sub="AMO, MOD, Conseil — une expertise complète au service de vos projets immobiliers."
+  />
+  <ServiceColumns lang={lang} />
+  <PhaseExplainer lang={lang} />
+  <SecondaryServices lang={lang} />
+  <CtaBand lang={lang} />
+</PageLayout>

@@ -1,0 +1,55 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+import { getCollection } from 'astro:content';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const posts = (await getCollection('news'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+const basePath = lang === 'fr' ? '/fr/actualites/' : '/en/news/';
+const allHref  = lang === 'fr' ? '/fr/actualites' : '/en/news';
+---
+
+{posts.length > 0 && (
+  <section class="news-teaser section">
+    <div class="page-wrap">
+      <div class="news-header reveal">
+        <span class="section-label">{t(lang, 'section.news')}</span>
+        <a href={allHref} class="news-all-link">{t(lang, 'news.all')} →</a>
+      </div>
+
+      <ul class="news-cards reveal-group" role="list">
+        {posts.map((post) => (
+          <li class="news-card reveal" role="listitem">
+            <a href={`${basePath}${post.slug}`} class="news-card-link">
+              <time
+                class="mono news-date"
+                datetime={post.data.date.toISOString()}
+              >
+                {post.data.date.toLocaleDateString(
+                  lang === 'fr' ? 'fr-FR' : 'en-GB',
+                  { day: '2-digit', month: 'long', year: 'numeric' }
+                )}
+              </time>
+              <h3 class="news-title">
+                {lang === 'en' && post.data.title_en
+                  ? post.data.title_en
+                  : post.data.title}
+              </h3>
+              {(lang === 'fr' ? post.data.excerpt : post.data.excerpt_en) && (
+                <p class="news-excerpt">
+                  {lang === 'fr' ? post.data.excerpt : post.data.excerpt_en}
+                </p>
+              )}
+              <span class="news-read">{t(lang, 'news.read')} →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

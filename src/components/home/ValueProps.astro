@@ -1,0 +1,91 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const props = [
+  { num: '01', titleKey: 'vp.1.title', bodyKey: 'vp.1.body' },
+  { num: '02', titleKey: 'vp.2.title', bodyKey: 'vp.2.body' },
+  { num: '03', titleKey: 'vp.3.title', bodyKey: 'vp.3.body' },
+] as const;
+---
+
+<section class="value-props section">
+  <div class="page-wrap">
+    <div class="vp-grid reveal-group">
+      {props.map(({ num, titleKey, bodyKey }) => (
+        <article class="vp-card reveal">
+          <span class="vp-num" aria-hidden="true">{num}</span>
+          <h3 class="vp-title">{t(lang, titleKey)}</h3>
+          <p class="vp-body">{t(lang, bodyKey)}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .vp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .vp-card {
+    padding: var(--sp-8) var(--sp-6);
+    border-right: 1px solid var(--color-border);
+    border-left: 2px solid transparent;
+    position: relative;
+    transition: border-left-color var(--duration-slow) ease;
+    cursor: default;
+  }
+
+  .vp-card:last-child {
+    border-right: none;
+  }
+
+  .vp-card:hover {
+    border-left-color: var(--color-gold);
+  }
+
+  .vp-num {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-gold);
+    margin-bottom: var(--sp-4);
+    letter-spacing: -0.04em;
+  }
+
+  .vp-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-weight: 400;
+    line-height: var(--leading-tight);
+    color: var(--color-void);
+    margin-bottom: var(--sp-3);
+  }
+
+  .vp-body {
+    font-size: var(--text-base);
+    font-weight: 300;
+    color: var(--color-text-muted);
+    line-height: var(--leading-loose);
+    max-width: 32ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+
+  @media (max-width: 860px) {
+    .vp-grid { grid-template-columns: 1fr; }
+    .vp-card { border-right: none; border-bottom: 1px solid var(--color-border); }
+    .vp-card:last-child { border-bottom: none; }
+  }
+</style>

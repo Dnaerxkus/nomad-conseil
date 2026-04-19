@@ -1,0 +1,159 @@
+---
+import type { Lang } from '../../i18n/ui';
+import { t } from '../../i18n/ui';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const clients = [
+  { name: 'AEW',              logo: '/images/clients/aew.jpg' },
+  { name: 'Affine',           logo: '/images/clients/affine.jpg' },
+  { name: 'AG2R La Mondiale', logo: '/images/clients/ag2r.jpg' },
+  { name: 'Altarea Cogedim',  logo: '/images/clients/altarea-cogedim.jpg' },
+  { name: 'Artelia',          logo: '/images/clients/artelia.jpg' },
+  { name: 'Aviva Investors',  logo: '/images/clients/aviva-investors.jpg' },
+  { name: 'Bouygues Immo.',   logo: '/images/clients/bouygues-immobilier.jpg' },
+  { name: 'CBRE',             logo: '/images/clients/cbre.jpg' },
+  { name: 'Commerz Real',     logo: '/images/clients/commerz-real.jpg' },
+  { name: 'DTZ Investors',    logo: '/images/clients/dtz-investors.jpg' },
+  { name: 'EDF Invest',       logo: '/images/clients/edf-invest.jpg' },
+  { name: 'Covivio',          logo: '/images/clients/covivio.jpg' },
+  { name: 'Gecina',           logo: '/images/clients/gecina.jpg' },
+  { name: 'Gemalto',          logo: '/images/clients/gemalto.jpg' },
+  { name: 'Generali',         logo: '/images/clients/generali.jpg' },
+  { name: 'Groupama',         logo: '/images/clients/groupama.jpg' },
+  { name: 'H3C',              logo: '/images/clients/h3c.jpg' },
+  { name: 'Icade',            logo: '/images/clients/icade.jpg' },
+  { name: 'OGIC',             logo: '/images/clients/ogic.jpg' },
+  { name: 'Oralia',           logo: '/images/clients/oralia.jpg' },
+  { name: 'Orange',           logo: '/images/clients/orange.jpg' },
+  { name: 'PGIM',             logo: '/images/clients/pgim.jpg' },
+  { name: 'Quartus',          logo: '/images/clients/quartus.jpg' },
+  { name: 'Redman',           logo: '/images/clients/redman.jpg' },
+  { name: 'Sogeprom',         logo: '/images/clients/sogeprom.jpg' },
+  { name: 'SFL',              logo: '/images/clients/sfl.jpg' },
+  { name: 'Swiss Life',       logo: '/images/clients/swiss-life.jpg' },
+  { name: 'STAM Europe',      logo: '/images/clients/stam.jpg' },
+  { name: 'Tishman Speyer',   logo: '/images/clients/tishman-speyer.jpg' },
+  { name: 'Woodeum',          logo: '/images/clients/woodeum.jpg' },
+];
+---
+
+<section class="logo-wall section">
+  <div class="page-wrap">
+    <ul class="logo-grid reveal-group" role="list" aria-label={t(lang, 'clients.title')}>
+      {clients.map(({ name, logo }) => (
+        <li class="logo-cell reveal" role="listitem">
+          <img src={logo} alt={name} class="logo-img" loading="lazy" width="120" height="60" />
+          <span class="logo-name">{name}</span>
+        </li>
+      ))}
+    </ul>
+
+    <p class="clients-count reveal">
+      <span class="mono">{clients.length}</span>
+      &nbsp;{t(lang, 'clients.count')}
+    </p>
+  </div>
+</section>
+
+<style>
+  .logo-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+    margin-bottom: var(--sp-8);
+  }
+
+  .logo-cell {
+    border-right: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    padding: var(--sp-5) var(--sp-4);
+    min-height: 100px;
+    cursor: default;
+    transition:
+      border-color var(--duration-base) ease,
+      background var(--duration-base) ease;
+    position: relative;
+  }
+
+  .logo-img {
+    max-width: 100px;
+    max-height: 44px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.55);
+    transition: filter var(--duration-base) ease;
+  }
+
+  .logo-cell:hover .logo-img {
+    filter: grayscale(0%) opacity(1);
+  }
+
+  .logo-cell::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border: 1px solid transparent;
+    transition: border-color var(--duration-base) ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .logo-cell:hover::before {
+    border-color: var(--color-gold);
+  }
+
+  .logo-cell:hover .logo-name {
+    color: var(--color-gold);
+  }
+
+  .logo-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 1.4;
+    transition: color var(--duration-base) ease;
+    user-select: none;
+  }
+
+  .clients-count {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    text-align: right;
+    max-width: none;
+  }
+
+  .clients-count .mono {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    color: var(--color-gold);
+    vertical-align: baseline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-cell, .logo-name, .reveal {
+      transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 1024px) { .logo-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 768px)  { .logo-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 480px)  { .logo-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>

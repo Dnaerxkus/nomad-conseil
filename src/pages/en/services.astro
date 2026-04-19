@@ -1,0 +1,28 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import ServiceColumns from '../../components/services/ServiceColumns.astro';
+import PhaseExplainer from '../../components/services/PhaseExplainer.astro';
+import SecondaryServices from '../../components/services/SecondaryServices.astro';
+import CtaBand from '../../components/ui/CtaBand.astro';
+
+const lang = 'en';
+---
+
+<PageLayout
+  lang={lang}
+  title="Services"
+  description="Delegated Project Management (MOD), Project Management Assistance (AMO) and Advisory for commercial real estate."
+  alternatePath="/activites"
+>
+  <PageHeader
+    lang={lang}
+    label="Our services"
+    title="What we do"
+    sub="AMO, MOD, Advisory — complete expertise at the service of your real estate projects."
+  />
+  <ServiceColumns lang={lang} />
+  <PhaseExplainer lang={lang} />
+  <SecondaryServices lang={lang} />
+  <CtaBand lang={lang} />
+</PageLayout>

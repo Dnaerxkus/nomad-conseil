@@ -1,0 +1,222 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+  lang: Lang;
+}
+
+const { projects, lang } = Astro.props;
+const sorted = [...projects].sort((a, b) => a.data.order - b.data.order);
+---
+
+<div class="project-grid-root section">
+  <div class="page-wrap">
+    {sorted.length === 0 ? (
+      <p class="empty-grid">
+        {lang === 'fr' ? 'Aucun projet pour ce filtre.' : 'No projects for this filter.'}
+      </p>
+    ) : (
+      <ul class="project-grid reveal-group" role="list" id="project-grid">
+        {sorted.map((project, i) => (
+          <li
+            class="project-card reveal"
+            role="listitem"
+            data-project-card
+            data-types={JSON.stringify(project.data.type)}
+            style={`transition-delay: ${(i % 6) * 80}ms`}
+          >
+            <!-- Image wrapper -->
+            <div class="card-img-wrap">
+              {project.data.image ? (
+                <img
+                  src={project.data.image}
+                  alt={project.data.title}
+                  loading="lazy"
+                  class="card-img"
+                  width="440"
+                  height="550"
+                />
+              ) : (
+                <div class="card-placeholder" aria-hidden="true">
+                  <span class="placeholder-letter">
+                    {project.data.title.charAt(0)}
+                  </span>
+                </div>
+              )}
+
+              <!-- Hover overlay -->
+              <div class="card-overlay" aria-hidden="true">
+                <span class="tag">{project.data.mission}</span>
+                {project.data.specifics && (
+                  <span class="card-specifics">{project.data.specifics}</span>
+                )}
+              </div>
+            </div>
+
+            <!-- Card metadata -->
+            <div class="card-meta">
+              <h3 class="card-title">{project.data.title}</h3>
+              <p class="card-location">
+                <span>{project.data.city}</span>
+                <span class="card-dot" aria-hidden="true">·</span>
+                <span class="card-client">{project.data.client}</span>
+              </p>
+              {project.data.surface && (
+                <p class="card-surface mono">{project.data.surface}</p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</div>
+
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sp-6) var(--sp-4);
+  }
+
+  /* Card */
+  .project-card { cursor: default; }
+
+  .project-card.filtered-out {
+    display: none;
+  }
+
+  /* Image */
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--color-bg-alt);
+    margin-bottom: var(--sp-3);
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .project-card:hover .card-img-wrap {
+    transform: scale(1.03);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Placeholder */
+  .card-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      150deg,
+      #ede8e0 0%,
+      #d8d0c6 40%,
+      #c8bfb4 70%,
+      #bab2a7 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .placeholder-letter {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 10vw, 10rem);
+    font-weight: 300;
+    color: rgba(15, 15, 13, 0.10);
+    line-height: 1;
+    user-select: none;
+  }
+
+  /* Overlay */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 15, 13, 0.78);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    opacity: 0;
+    transition: opacity var(--duration-base) ease;
+  }
+
+  .project-card:hover .card-overlay,
+  .project-card:focus-within .card-overlay {
+    opacity: 1;
+  }
+
+  .card-specifics {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--color-chalk);
+    text-align: center;
+    padding-inline: var(--sp-4);
+    line-height: 1.6;
+  }
+
+  /* Meta */
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: var(--leading-tight);
+    color: var(--color-void);
+    margin-bottom: 4px;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .project-card:hover .card-title { color: var(--color-gold); }
+
+  .card-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-sm);
+    font-weight: 300;
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0 0 4px;
+  }
+
+  .card-dot { color: var(--color-gold); opacity: 0.4; }
+  .card-client { color: var(--color-text-muted); }
+
+  .card-surface {
+    color: var(--color-gold);
+    font-size: var(--text-sm);
+    max-width: none;
+    margin: 0;
+  }
+
+  /* Empty state */
+  .empty-grid {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-text-muted);
+    text-align: center;
+    padding-block: var(--sp-16);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-img-wrap, .card-overlay, .reveal {
+      transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 1024px) { .project-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px)  { .project-grid { grid-template-columns: 1fr; } }
+</style>

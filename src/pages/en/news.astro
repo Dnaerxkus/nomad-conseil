@@ -1,0 +1,73 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import { getCollection } from 'astro:content';
+
+const lang = 'en';
+const posts = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<PageLayout
+  lang={lang}
+  title="News"
+  description="News from Nomad Conseil — recent projects, market insights, and expert perspectives."
+  alternatePath="/actualites"
+>
+  <PageHeader
+    lang={lang}
+    label="News"
+    title="News"
+    sub={posts.length > 0 ? `${posts.length} articles` : ''}
+  />
+
+  <section class="section">
+    <div class="page-wrap">
+      {posts.length === 0 ? (
+        <p class="empty-state">News coming soon.</p>
+      ) : (
+        <ul class="news-list">
+          {posts.map((post) => (
+            <li class="news-item reveal">
+              <a href={`/en/news/${post.slug}`} class="news-link">
+                <time class="mono news-date" datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+                </time>
+                <h2 class="news-title">{post.data.title_en ?? post.data.title}</h2>
+                {post.data.excerpt_en && <p class="news-excerpt">{post.data.excerpt_en}</p>}
+                <span class="news-read">Read →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .empty-state {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-text-muted);
+    text-align: center;
+    padding-block: var(--sp-24);
+  }
+  .news-list { display: flex; flex-direction: column; }
+  .news-item { border-top: 1px solid var(--color-border); }
+  .news-item:last-child { border-bottom: 1px solid var(--color-border); }
+  .news-link {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    gap: var(--sp-1) var(--sp-4);
+    padding-block: var(--sp-6);
+  }
+  .news-link:hover .news-title { color: var(--color-gold); }
+  .news-date { color: var(--color-text-muted); align-self: center; }
+  .news-title { font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 400; transition: color var(--duration-fast) ease; }
+  .news-excerpt { font-size: var(--text-base); color: var(--color-text-muted); grid-column: 2; grid-row: 2; }
+  .news-read { font-size: var(--text-xs); letter-spacing: var(--tracking-wide); color: var(--color-gold); align-self: center; }
+</style>

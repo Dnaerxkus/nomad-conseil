@@ -1,0 +1,105 @@
+---
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const clients = [
+  'AEW', 'Affine', 'AG2R La Mondiale', 'Altarea Cogedim', 'Artelia',
+  'Aviva Investors', 'Bouygues Immobilier', 'CBRE', 'Commerz Real',
+  'DTZ Investors', 'EDF Invest', 'Covivio', 'Gecina', 'Gemalto',
+  'Generali', 'Groupama', 'H3C', 'Icade', 'OGIC', 'Oralia',
+  'Orange', 'PGIM', 'Quartus', 'Redman', 'Sogeprom', 'SFL',
+  'Swiss Life', 'STAM Europe', 'Tishman Speyer', 'Woodeum',
+];
+---
+
+<div class="marquee-band dark-band" aria-label={lang === 'fr' ? 'Nos clients' : 'Our clients'}>
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      {[...clients, ...clients].map((name, i) => (
+        <span class="marquee-item">
+          <span class="client-name">{name}</span>
+          <span class="dot" aria-hidden="true">·</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .marquee-band {
+    padding-block: var(--sp-6);
+    overflow: hidden;
+    border-top: 1px solid rgba(184, 154, 106, 0.15);
+    border-bottom: 1px solid rgba(184, 154, 106, 0.15);
+  }
+
+  .marquee-wrap {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 6%,
+      black 94%,
+      transparent
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee 48s linear infinite;
+    gap: 0;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-4);
+    padding-inline: var(--sp-4);
+    white-space: nowrap;
+  }
+
+  .client-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-chalk);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .marquee-track:hover .client-name {
+    color: var(--color-stone);
+  }
+
+  .dot {
+    color: var(--color-gold);
+    opacity: 0.6;
+    font-size: 10px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+      gap: var(--sp-3);
+    }
+  }
+</style>

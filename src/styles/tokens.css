@@ -1,0 +1,74 @@
+:root {
+  /* ─── Colour ────────────────────────────────────────────── */
+  --color-void:       #0f0f0d;
+  --color-stone:      #f2ede6;
+  --color-concrete:   #1e1d1a;
+  --color-ash:        #8a8780;
+  --color-chalk:      #c8c4bc;
+  --color-border:     rgba(15, 15, 13, 0.10);
+  --color-border-dark:rgba(242, 237, 230, 0.12);
+
+  --color-gold:       #b89a6a;
+  --color-gold-dim:   rgba(184, 154, 106, 0.28);
+
+  --color-bg:         var(--color-stone);
+  --color-bg-alt:     #e8e3dc;
+  --color-text:       var(--color-void);
+  --color-text-muted: var(--color-ash);
+  --color-accent:     var(--color-gold);
+
+  /* ─── Typography ────────────────────────────────────────── */
+  --font-display: 'Cormorant', 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  --text-xs:   0.6875rem;  /* 11px */
+  --text-sm:   0.75rem;    /* 12px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.375rem;   /* 22px */
+  --text-2xl:  1.75rem;    /* 28px */
+  --text-3xl:  2.25rem;    /* 36px */
+  --text-4xl:  clamp(2.25rem, 4vw, 3.5rem);
+  --text-hero: clamp(3.25rem, 7vw, 7.5rem);
+
+  --leading-tight:  1.15;
+  --leading-normal: 1.65;
+  --leading-loose:  1.85;
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal:  0em;
+  --tracking-wide:    0.06em;
+  --tracking-widest:  0.18em;
+
+  /* ─── Spacing ───────────────────────────────────────────── */
+  --sp-1:  0.5rem;
+  --sp-2:  1rem;
+  --sp-3:  1.5rem;
+  --sp-4:  2rem;
+  --sp-6:  3rem;
+  --sp-8:  4rem;
+  --sp-12: 6rem;
+  --sp-16: 8rem;
+  --sp-24: 12rem;
+
+  --section-gap:  clamp(5rem, 10vw, 10rem);
+  --page-padding: clamp(1.5rem, 5vw, 5rem);
+  --max-width:    1380px;
+  --content-width: 860px;
+
+  /* ─── Radii & Borders ───────────────────────────────────── */
+  --radius-sm: 2px;
+  --radius:    4px;
+  --border:    1px solid var(--color-border);
+  --border-gold: 1px solid var(--color-gold);
+
+  /* ─── Motion ────────────────────────────────────────────── */
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:   cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-circ: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --duration-fast:   150ms;
+  --duration-base:   300ms;
+  --duration-slow:   600ms;
+  --duration-reveal: 800ms;
+}

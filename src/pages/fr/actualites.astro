@@ -1,0 +1,123 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import { getCollection } from 'astro:content';
+
+const lang = 'fr';
+const posts = (await getCollection('news')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<PageLayout
+  lang={lang}
+  title="Actualités"
+  description="Actualités de Nomad Conseil — projets récents, évolutions du marché, points d'expertise."
+  alternatePath="/news"
+>
+  <PageHeader
+    lang={lang}
+    label="Actualités"
+    title="Actualités"
+    sub={posts.length > 0 ? `${posts.length} articles` : ''}
+  />
+
+  <section class="section">
+    <div class="page-wrap">
+      {posts.length === 0 ? (
+        <p class="empty-state">Les actualités arrivent bientôt.</p>
+      ) : (
+        <ul class="news-list">
+          {posts.map((post) => (
+            <li class="news-item reveal">
+              <a href={`/fr/actualites/${post.slug}`} class="news-link">
+                <time class="mono news-date" datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
+                </time>
+                <h2 class="news-title">{post.data.title}</h2>
+                {post.data.excerpt && <p class="news-excerpt">{post.data.excerpt}</p>}
+                <span class="news-read">Lire →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .empty-state {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-text-muted);
+    text-align: center;
+    padding-block: var(--sp-24);
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .news-item {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .news-item:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .news-link {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    grid-template-rows: auto auto;
+    gap: var(--sp-1) var(--sp-4);
+    padding-block: var(--sp-6);
+    transition: background var(--duration-fast) ease;
+  }
+
+  .news-link:hover .news-title { color: var(--color-gold); }
+
+  .news-date {
+    color: var(--color-text-muted);
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .news-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 400;
+    grid-row: 1;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .news-excerpt {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    grid-column: 2;
+    grid-row: 2;
+    max-width: 60ch;
+  }
+
+  .news-read {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-gold);
+    align-self: center;
+    grid-row: 1;
+  }
+
+  @media (max-width: 640px) {
+    .news-link {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto auto;
+    }
+    .news-read { grid-row: auto; }
+  }
+</style>

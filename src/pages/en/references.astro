@@ -1,0 +1,27 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import ProjectGrid from '../../components/references/ProjectGrid.astro';
+import FilterBar from '../../components/references/FilterBar';
+import { getCollection } from 'astro:content';
+
+const lang = 'en';
+const projects = await getCollection('projects');
+---
+
+<PageLayout
+  lang={lang}
+  title="References"
+  description="Over 50 commercial real estate projects delivered for institutional investors, REITs and developers."
+  alternatePath="/references"
+>
+  <PageHeader
+    lang={lang}
+    label="Portfolio"
+    title="References"
+    sub={`${projects.length} projects`}
+    mono
+  />
+  <FilterBar client:load lang={lang} />
+  <ProjectGrid lang={lang} projects={projects} />
+</PageLayout>

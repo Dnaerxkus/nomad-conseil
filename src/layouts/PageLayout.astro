@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  alternatePath?: string;
+}
+
+const { lang, title, description, alternatePath } = Astro.props;
+---
+
+<BaseLayout lang={lang} title={title} description={description} alternatePath={alternatePath}>
+  <Header lang={lang} />
+  <main>
+    <slot />
+  </main>
+  <Footer lang={lang} />
+</BaseLayout>

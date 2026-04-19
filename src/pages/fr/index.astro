@@ -1,0 +1,20 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/home/Hero.astro';
+import ValueProps from '../../components/home/ValueProps.astro';
+import ReferencesTeaser from '../../components/home/ReferencesTeaser.astro';
+import ClientsMarquee from '../../components/home/ClientsMarquee.astro';
+import NewsTeaser from '../../components/home/NewsTeaser.astro';
+import CtaBand from '../../components/ui/CtaBand.astro';
+
+const lang = 'fr';
+---
+
+<PageLayout lang={lang} title="Accueil" alternatePath="/">
+  <Hero lang={lang} />
+  <ValueProps lang={lang} />
+  <ReferencesTeaser lang={lang} />
+  <ClientsMarquee lang={lang} />
+  <NewsTeaser lang={lang} />
+  <CtaBand lang={lang} />
+</PageLayout>

@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap');
+
+@import './tokens.css';
+@import './reset.css';
+@import './animations.css';
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 300;
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* ─── Typographic base ──────────────────────────────────── */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 { font-size: var(--text-hero); }
+h2 { font-size: var(--text-4xl); }
+h3 { font-size: var(--text-3xl); }
+h4 { font-size: var(--text-2xl); }
+
+p {
+  font-size: var(--text-base);
+  font-weight: 300;
+  line-height: var(--leading-loose);
+  color: var(--color-text);
+  max-width: 68ch;
+}
+
+/* ─── Utilities ─────────────────────────────────────────── */
+
+.label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.gold { color: var(--color-gold); }
+
+.page-wrap {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+}
+
+.section {
+  padding-block: var(--section-gap);
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+
+/* ─── Tag / pill ────────────────────────────────────────── */
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold-dim);
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Hairline divider ──────────────────────────────────── */
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ─── Dark band ─────────────────────────────────────────── */
+
+.dark-band {
+  background-color: var(--color-concrete);
+  color: var(--color-stone);
+}
+
+.dark-band p { color: var(--color-chalk); }
+
+/* ─── Focus ring ────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* ─── FilterBar (React island) ──────────────────────── */
+
+.filtered-out {
+  display: none !important;
+}
+
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  padding: var(--sp-6) 0 var(--sp-8);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--page-padding);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--sp-8);
+}
+
+.filter-pill {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: border-color var(--duration-fast) ease,
+              background var(--duration-fast) ease,
+              color var(--duration-fast) ease;
+}
+
+.filter-pill:hover {
+  border-color: var(--color-gold);
+  color: var(--color-void);
+}
+
+.filter-pill.active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-void);
+}
+
+.filter-pill:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* ─── News teaser cards ─────────────────────────────── */
+
+.news-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--sp-6);
+}
+
+.news-all-link {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  transition: opacity var(--duration-fast) ease;
+  cursor: pointer;
+}
+
+.news-all-link:hover { opacity: 0.7; }
+.news-all-link:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 4px; }
+
+.news-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-6);
+}
+
+.news-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  padding: var(--sp-6);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: border-color var(--duration-base) ease;
+}
+
+.news-card-link:hover { border-color: var(--color-gold); }
+.news-card-link:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 4px; }
+
+.news-date {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.news-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  color: var(--color-void);
+  transition: color var(--duration-fast) ease;
+}
+
+.news-card-link:hover .news-title { color: var(--color-gold); }
+
+.news-excerpt {
+  font-size: var(--text-base);
+  font-weight: 300;
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+  max-width: 44ch;
+}
+
+.news-read {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-top: auto;
+}
+
+@media (max-width: 640px) {
+  .news-cards { grid-template-columns: 1fr; }
+}

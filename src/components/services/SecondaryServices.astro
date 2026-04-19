@@ -1,0 +1,119 @@
+---
+import type { Lang } from '../../i18n/ui';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const conseil = lang === 'fr' ? {
+  title: 'Conseil',
+  items: [
+    'Audit d\'acquisition (VEFA, BEFA, CPI, MOD…)',
+    'Audit de cahiers des charges de vente',
+    'Revue de DCE et dossiers de marché',
+    'Analyse de la valeur et value engineering',
+    'Optimisation des capacités',
+    'Recommandations en risque contentieux',
+  ],
+} : {
+  title: 'Advisory',
+  items: [
+    'Acquisition audit (off-plan, forward lease, CPI, MOD…)',
+    'Sales specification audits',
+    'Tender documents (DCE) and contract reviews',
+    'Value analysis and value engineering',
+    'Capacity optimisation',
+    'Litigation risk recommendations',
+  ],
+};
+
+const assistance = lang === 'fr' ? {
+  title: 'Assistance',
+  items: [
+    'Revalorisation du patrimoine avec nouvelles exigences environnementales',
+    'Accompagnement des utilisateurs de la recherche à la relocalisation',
+    'Préparation des consultations pour les preneurs',
+    'Finalisation contractuelle',
+    'Désignation des entreprises',
+    'Gestion de fin de chantier',
+    'Suivi des sinistres et assurances',
+  ],
+} : {
+  title: 'Assistance',
+  items: [
+    'Heritage revalorisation with new environmental requirements',
+    'User support from site selection to relocation',
+    'Tender preparation for occupiers',
+    'Contract finalisation',
+    'Contractor appointment',
+    'End-of-site management',
+    'Claims and insurance monitoring',
+  ],
+};
+---
+
+<section class="secondary-services section">
+  <div class="page-wrap secondary-grid">
+    {[conseil, assistance].map((col) => (
+      <div class="sec-col reveal">
+        <span class="section-label">{col.title}</span>
+        <h3 class="sec-heading">{col.title}</h3>
+        <ul class="sec-list" role="list">
+          {col.items.map(item => (
+            <li class="sec-item">{item}</li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .secondary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-16);
+  }
+
+  .sec-col { display: flex; flex-direction: column; gap: var(--sp-4); }
+
+  .sec-heading {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    color: var(--color-void);
+    margin-top: var(--sp-1);
+  }
+
+  .sec-list { display: flex; flex-direction: column; gap: 0; }
+
+  .sec-item {
+    font-size: var(--text-base);
+    font-weight: 300;
+    color: var(--color-text-muted);
+    line-height: var(--leading-normal);
+    padding: var(--sp-3) 0 var(--sp-3) var(--sp-4);
+    border-bottom: 1px solid var(--color-border);
+    border-left: 2px solid transparent;
+    transition: border-left-color var(--duration-base) ease, color var(--duration-fast) ease;
+  }
+
+  .sec-item:first-child { border-top: 1px solid var(--color-border); }
+
+  .sec-item:hover {
+    border-left-color: var(--color-gold);
+    color: var(--color-void);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sec-item, .reveal {
+      transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .secondary-grid { grid-template-columns: 1fr; gap: var(--sp-10); }
+  }
+</style>

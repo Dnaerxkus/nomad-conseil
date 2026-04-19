@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  ogImage?: string;
+  alternatePath?: string;
+}
+
+const {
+  lang,
+  title,
+  description = lang === 'fr'
+    ? 'Nomad Conseil — Maîtrise d\'Ouvrage Déléguée et Assistance à Maîtrise d\'Ouvrage. Expert immobilier tertiaire à Paris.'
+    : 'Nomad Conseil — Delegated Project Management and Project Management Assistance. Commercial real estate experts in Paris.',
+  ogImage = '/og-image.jpg',
+  alternatePath = '/',
+} = Astro.props;
+
+const altLang = lang === 'fr' ? 'en' : 'fr';
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const altURL = new URL(`/${altLang}${alternatePath}`, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title} — Nomad Conseil</title>
+    <meta name="description" content={description} />
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang={lang}    href={canonicalURL} />
+    <link rel="alternate" hreflang={altLang} href={altURL} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/fr/', Astro.site)} />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={canonicalURL} />
+    <meta property="og:title"       content={`${title} — Nomad Conseil`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale"      content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Scroll reveal observer -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

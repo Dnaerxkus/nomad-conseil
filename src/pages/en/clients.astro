@@ -1,0 +1,23 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import LogoWall from '../../components/clients/LogoWall.astro';
+
+const lang = 'en';
+---
+
+<PageLayout
+  lang={lang}
+  title="Clients"
+  description="Our clients: Tishman Speyer, Gecina, AXA, EDF, Orange, Generali and over 25 other institutional investors."
+  alternatePath="/clients"
+>
+  <PageHeader
+    lang={lang}
+    label="They trust us"
+    title="Clients"
+    sub="30 institutional clients"
+    mono
+  />
+  <LogoWall lang={lang} />
+</PageLayout>
