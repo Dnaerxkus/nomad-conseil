@@ -2,6 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import { t } from '../../i18n/ui';
 import { getCollection } from 'astro:content';
+import { link } from '../../utils/asset';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -10,8 +11,8 @@ const posts = (await getCollection('news'))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 2);
 
-const basePath = lang === 'fr' ? '/fr/actualites/' : '/en/news/';
-const allHref  = lang === 'fr' ? '/fr/actualites' : '/en/news';
+const basePath = link(lang === 'fr' ? '/fr/actualites/' : '/en/news/');
+const allHref  = link(lang === 'fr' ? '/fr/actualites' : '/en/news');
 ---
 
 {posts.length > 0 && (

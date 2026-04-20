@@ -1,4 +1,4 @@
 ---
-// Root redirect → default locale
-return Astro.redirect('/fr/', 301);
+import { link } from '../utils/asset';
+return Astro.redirect(link('/fr/'), 301);
 ---

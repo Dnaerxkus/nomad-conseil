@@ -2,6 +2,7 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import PageHeader from '../../components/ui/PageHeader.astro';
 import { getCollection } from 'astro:content';
+import { link } from '../../utils/asset';
 
 const lang = 'fr';
 const posts = (await getCollection('news')).sort(
@@ -30,7 +31,7 @@ const posts = (await getCollection('news')).sort(
         <ul class="news-list">
           {posts.map((post) => (
             <li class="news-item reveal">
-              <a href={`/fr/actualites/${post.slug}`} class="news-link">
+              <a href={link(`/fr/actualites/${post.slug}`)} class="news-link">
                 <time class="mono news-date" datetime={post.data.date.toISOString()}>
                   {post.data.date.toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
                 </time>

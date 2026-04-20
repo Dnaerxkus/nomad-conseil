@@ -2,6 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import { t } from '../../i18n/ui';
 import LanguageToggle from './LanguageToggle.astro';
+import { link } from '../../utils/asset';
 
 interface Props {
   lang: Lang;
@@ -12,20 +13,19 @@ const base = `/${lang}`;
 const current = Astro.url.pathname;
 
 const navItems = [
-  { key: 'nav.services',   href: `${base}/activites` },
-  { key: 'nav.references', href: `${base}/references` },
-  { key: 'nav.clients',    href: `${base}/clients` },
-  { key: 'nav.team',       href: `${base}/equipe` },
-  { key: 'nav.contact',    href: `${base}/contact` },
+  { key: 'nav.services',   href: link(`${base}/activites`) },
+  { key: 'nav.references', href: link(`${base}/references`) },
+  { key: 'nav.clients',    href: link(`${base}/clients`) },
+  { key: 'nav.team',       href: link(`${base}/equipe`) },
+  { key: 'nav.contact',    href: link(`${base}/contact`) },
 ] as const;
 
-// English paths differ
 const navItemsEn = [
-  { key: 'nav.services',   href: `${base}/services` },
-  { key: 'nav.references', href: `${base}/references` },
-  { key: 'nav.clients',    href: `${base}/clients` },
-  { key: 'nav.team',       href: `${base}/team` },
-  { key: 'nav.contact',    href: `${base}/contact` },
+  { key: 'nav.services',   href: link(`${base}/services`) },
+  { key: 'nav.references', href: link(`${base}/references`) },
+  { key: 'nav.clients',    href: link(`${base}/clients`) },
+  { key: 'nav.team',       href: link(`${base}/team`) },
+  { key: 'nav.contact',    href: link(`${base}/contact`) },
 ] as const;
 
 const items = lang === 'fr' ? navItems : navItemsEn;
@@ -34,7 +34,7 @@ const items = lang === 'fr' ? navItems : navItemsEn;
 <header class="site-header" id="site-header">
   <div class="header-inner page-wrap">
     <!-- Logo -->
-    <a href={`/${lang}/`} class="logo-link" aria-label="Nomad Conseil — Accueil">
+    <a href={link(`/${lang}/`)} class="logo-link" aria-label="Nomad Conseil — Accueil">
       <svg viewBox="0 0 280 48" fill="none" class="logo-svg" aria-hidden="true">
         <defs>
           <clipPath id="h-right-clip"><rect x="39" y="0" width="44" height="48"/></clipPath>

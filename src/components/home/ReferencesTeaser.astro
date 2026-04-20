@@ -13,7 +13,7 @@ const featured = all
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 
-const refsHref = lang === 'fr' ? '/fr/references' : '/en/references';
+const refsHref = link(lang === 'fr' ? '/fr/references' : '/en/references');
 ---
 
 <section class="refs-teaser section">

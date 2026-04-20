@@ -2,6 +2,7 @@
 import type { Lang } from '../../i18n/ui';
 import { t } from '../../i18n/ui';
 import LanguageToggle from './LanguageToggle.astro';
+import { link } from '../../utils/asset';
 
 interface Props {
   lang: Lang;
@@ -12,20 +13,20 @@ const base = `/${lang}`;
 
 const navItems = lang === 'fr'
   ? [
-      { key: 'nav.services',   href: `${base}/activites` },
-      { key: 'nav.references', href: `${base}/references` },
-      { key: 'nav.clients',    href: `${base}/clients` },
-      { key: 'nav.team',       href: `${base}/equipe` },
-      { key: 'nav.news',       href: `${base}/actualites` },
-      { key: 'nav.contact',    href: `${base}/contact` },
+      { key: 'nav.services',   href: link(`${base}/activites`) },
+      { key: 'nav.references', href: link(`${base}/references`) },
+      { key: 'nav.clients',    href: link(`${base}/clients`) },
+      { key: 'nav.team',       href: link(`${base}/equipe`) },
+      { key: 'nav.news',       href: link(`${base}/actualites`) },
+      { key: 'nav.contact',    href: link(`${base}/contact`) },
     ]
   : [
-      { key: 'nav.services',   href: `${base}/services` },
-      { key: 'nav.references', href: `${base}/references` },
-      { key: 'nav.clients',    href: `${base}/clients` },
-      { key: 'nav.team',       href: `${base}/team` },
-      { key: 'nav.news',       href: `${base}/news` },
-      { key: 'nav.contact',    href: `${base}/contact` },
+      { key: 'nav.services',   href: link(`${base}/services`) },
+      { key: 'nav.references', href: link(`${base}/references`) },
+      { key: 'nav.clients',    href: link(`${base}/clients`) },
+      { key: 'nav.team',       href: link(`${base}/team`) },
+      { key: 'nav.news',       href: link(`${base}/news`) },
+      { key: 'nav.contact',    href: link(`${base}/contact`) },
     ];
 ---
 
@@ -34,7 +35,7 @@ const navItems = lang === 'fr'
 
     <!-- Brand column -->
     <div class="footer-brand">
-      <a href={`/${lang}/`} class="footer-logo" aria-label="Nomad Conseil">
+      <a href={link(`/${lang}/`)} class="footer-logo" aria-label="Nomad Conseil">
         <svg viewBox="0 0 280 48" fill="none" class="footer-logo-svg" aria-hidden="true">
           <defs>
             <clipPath id="f-right-clip"><rect x="39" y="0" width="44" height="48"/></clipPath>
@@ -66,7 +67,7 @@ const navItems = lang === 'fr'
     <!-- Meta column -->
     <div class="footer-meta">
       <LanguageToggle lang={lang} />
-      <a href={`/${lang}/contact`} class="footer-email">contact@nomad-conseil.fr</a>
+      <a href={link(`/${lang}/contact`)} class="footer-email">contact@nomad-conseil.fr</a>
     </div>
   </div>
 
