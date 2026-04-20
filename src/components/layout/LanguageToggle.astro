@@ -1,7 +1,7 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import { getAlternatePath } from '../../i18n/ui';
-import { link } from '../../utils/asset';
+import { url } from '../../utils/asset';
 
 interface Props {
   lang: Lang;
@@ -10,12 +10,12 @@ interface Props {
 
 const { lang, alternatePath = '/' } = Astro.props;
 const altLang = lang === 'fr' ? 'en' : 'fr';
-const altHref = link(getAlternatePath(lang, alternatePath));
+const altHref = url(getAlternatePath(lang, alternatePath));
 ---
 
 <div class="lang-toggle" aria-label="Language selector">
   <span class:list={['lang-opt', { active: lang === 'fr' }]}>
-    {lang === 'fr' ? 'FR' : <a href={link(`/fr${alternatePath}`)}>FR</a>}
+    {lang === 'fr' ? 'FR' : <a href={url(`/fr${alternatePath}`)}>FR</a>}
   </span>
   <span class="lang-sep" aria-hidden="true">/</span>
   <span class:list={['lang-opt', { active: lang === 'en' }]}>

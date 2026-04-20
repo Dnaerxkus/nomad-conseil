@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import type { Lang } from '../i18n/ui';
-import { asset } from '../utils/asset';
+import { url } from '../utils/asset';
 
 interface Props {
   lang: Lang;
@@ -51,7 +51,7 @@ const altURL = new URL(`/${altLang}${alternatePath}`, Astro.site);
     <meta property="og:locale"      content={lang === 'fr' ? 'fr_FR' : 'en_GB'} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href={asset('/favicon.svg')} />
+    <link rel="icon" type="image/svg+xml" href={url('/favicon.svg')} />
 
     <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

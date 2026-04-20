@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../../i18n/ui';
-import { asset } from '../../utils/asset';
+import { url } from '../../utils/asset';
 
 interface Props {
   projects: CollectionEntry<'projects'>[];
@@ -32,7 +32,7 @@ const sorted = [...projects].sort((a, b) => a.data.order - b.data.order);
             <div class="card-img-wrap">
               {project.data.image ? (
                 <img
-                  src={asset(project.data.image)}
+                  src={url(project.data.image)}
                   alt={project.data.title}
                   loading="lazy"
                   class="card-img"

@@ -1,11 +1,11 @@
 ---
 import type { Lang } from '../../i18n/ui';
 import { t } from '../../i18n/ui';
-import { link } from '../../utils/asset';
+import { url } from '../../utils/asset';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
-const refsHref = link(lang === 'fr' ? '/fr/references' : '/en/references');
+const refsHref = url(lang === 'fr' ? '/fr/references' : '/en/references');
 ---
 
 <section class="hero" aria-label="Introduction">
